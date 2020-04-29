@@ -12,25 +12,31 @@ using System.Windows.Forms;
 
 namespace TainFilesManage
 {
-    public partial class Form1 : Form
+    public partial class HomeForm : Form
     {
-        public Form1()
+        public HomeForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 开始归类按钮
+        /// </summary>
         private void sortButton_Click(object sender, EventArgs e)
         {
-            backgroundWorker1.RunWorkerAsync(inTextBox.Text);
+            sortBackgroundWorker.RunWorkerAsync(inTextBox.Text);
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        /// <summary>
+        /// 导步归类开始
+        /// </summary>
+        private void sortBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-                DirectoryInfo directorys = new DirectoryInfo(e.Argument as string);// 遍历文件夹
-                FileInfo[] files = directorys.GetFiles("*.arw", SearchOption.AllDirectories);
-                for (int i = 0; i < files.Length; i++)
-                {
-                if (backgroundWorker1.CancellationPending)// 取消检测
+            DirectoryInfo directorys = new DirectoryInfo(e.Argument as string);// 遍历文件夹
+            FileInfo[] files = directorys.GetFiles("*.mp4", SearchOption.AllDirectories);
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (sortBackgroundWorker.CancellationPending)// 取消检测
                 {
                     e.Cancel = true;
                     return;
@@ -42,12 +48,22 @@ namespace TainFilesManage
 
                 try// 访问权限捕捉
                 {
-                    string time = DateTimeFunction.GetTakeMediaDataTime(files[i].FullName);
-                    if (time == "") time = string.Format("{0:yyyyMMdd}", files[i].LastWriteTime);
+                    string time = DateFunction.GetMediaData(files[i].FullName);// 返回空白，即此方法没有获取到有效信息
+
+                    //gffdsfaffd   MP4获取失败，尝试把所有属性列出来看看
+
+                    if (time == "") MessageBox.Show("获取失败");
+
+                        if (time == "") time = string.Format("{0:yyyyMMdd}", files[i].LastWriteTime);// 获取文件最后写入时间
+                    if (time == null)// 返回了null值，表示时间格式化时失败了
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
                     DirectoryInfo dir = new DirectoryInfo(files[i].DirectoryName);
                     files[i].MoveTo(Path.Combine(files[i].DirectoryName, time + "_" + new DirectoryInfo(files[i].DirectoryName).Name + "_" + files[i].Name).Replace("mmexport", "").Replace("wx_camera_", ""));
                     ///
-                    backgroundWorker1.ReportProgress(Percents.Get(i, files.Length), files[i].FullName);// 进度传出
+                    sortBackgroundWorker.ReportProgress(Percents.Get(i, files.Length), files[i].FullName);// 进度传出
                 }
                 #region 异常
                 catch (UnauthorizedAccessException ex)
@@ -81,44 +97,63 @@ namespace TainFilesManage
             }
         }
 
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        /// <summary>
+        /// 导步归类进度
+        /// </summary>
+        private void sortBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            toolStripProgressBar1.Value = (e.ProgressPercentage < 101) ? e.ProgressPercentage : toolStripProgressBar1.Value;
-            toolStripStatusLabel1.Text = toolStripProgressBar1.Value.ToString() + "% " + e.UserState as string;
+            progressBar.Value = (e.ProgressPercentage < 101) ? e.ProgressPercentage : progressBar.Value;
+            progressLabel.Text = progressBar.Value.ToString() + "% " + e.UserState as string;
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        /// <summary>
+        /// 导步归类结束
+        /// </summary>
+        private void sortBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                toolStripStatusLabel1.Text = "后台错误";
-                toolStripProgressBar1.Value = 0;
+                progressLabel.Text = "后台错误";
+                progressBar.Value = 0;
                 return;
             }
 
             if (e.Cancelled)
             {
-                toolStripStatusLabel1.Text = "已取消";
+                progressLabel.Text = "已取消";
                 return;
             }
 
-            toolStripProgressBar1.Value = 100;
-            toolStripStatusLabel1.Text = "完成";
+            progressBar.Value = 100;
+            progressLabel.Text = "完成";
         }
 
+        /// <summary>
+        /// 归类文件夹浏览
+        /// </summary>
         private void inButton_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) inTextBox.Text = folderBrowserDialog1.SelectedPath;
         }
 
+        /// <summary>
+        /// 目标文件夹浏览
+        /// </summary>
         private void outButton_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) outTextBox.Text = folderBrowserDialog1.SelectedPath;
         }
 
+        /// <summary>
+        /// 取消归类按钮
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            backgroundWorker1.CancelAsync();
+            sortBackgroundWorker.CancelAsync();
         }
+        
+
+        ///
+
     }
 }

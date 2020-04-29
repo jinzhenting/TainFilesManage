@@ -33,7 +33,7 @@ namespace TainFilesManage
         private void sortBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             DirectoryInfo directorys = new DirectoryInfo(e.Argument as string);// 遍历文件夹
-            FileInfo[] files = directorys.GetFiles("*.mp4", SearchOption.AllDirectories);
+            FileInfo[] files = directorys.GetFiles("*."+ extensionTextBox.Text, SearchOption.AllDirectories);
             for (int i = 0; i < files.Length; i++)
             {
                 if (sortBackgroundWorker.CancellationPending)// 取消检测
@@ -41,28 +41,40 @@ namespace TainFilesManage
                     e.Cancel = true;
                     return;
                 }
+
                 ///
-                Regex regNum = new Regex(@"^([0-9]{8})[_].");
+
+                Regex regNum = new Regex(@"^(([0-9]{8})[_]).*");
                 if (regNum.IsMatch(files[i].Name)) continue;
+
                 ///
 
                 try// 访问权限捕捉
                 {
                     string time = DateFunction.GetMediaData(files[i].FullName);// 返回空白，即此方法没有获取到有效信息
-
-                    //gffdsfaffd   MP4获取失败，尝试把所有属性列出来看看
-
-                    if (time == "") MessageBox.Show("获取失败");
-
-                        if (time == "") time = string.Format("{0:yyyyMMdd}", files[i].LastWriteTime);// 获取文件最后写入时间
+                    if (time == "") time = string.Format("{0:yyyyMMdd}", files[i].LastWriteTime);// 获取文件最后写入时间
                     if (time == null)// 返回了null值，表示时间格式化时失败了
                     {
                         e.Cancel = true;
                         return;
                     }
-                    DirectoryInfo dir = new DirectoryInfo(files[i].DirectoryName);
-                    files[i].MoveTo(Path.Combine(files[i].DirectoryName, time + "_" + new DirectoryInfo(files[i].DirectoryName).Name + "_" + files[i].Name).Replace("mmexport", "").Replace("wx_camera_", ""));
+
                     ///
+
+                    DirectoryInfo dir = new DirectoryInfo(files[i].DirectoryName);// 父级文件夹名称
+                    string fileName = Path.GetFileNameWithoutExtension(files[i].Name).Replace("mmexport", "").Replace("wx_camera_", "");// 不包含扩展名的文件名
+                    string extension = Path.GetExtension(files[i].Name).ToLower();// 扩展名
+                    string folddrName = dir.Name;
+                    if (sortCheckBox.Checked)// 归类
+                    {
+                        string endFolder = Path.Combine(outTextBox.Text, time.Substring(0, 6));// 年月文件夹
+                        if (!Directory.Exists(endFolder)) Directory.CreateDirectory(endFolder);
+                        files[i].MoveTo(Path.Combine(endFolder, time + "_" + folddrName + "_" + fileName + extension));
+                    }
+                    else files[i].MoveTo(Path.Combine(files[i].DirectoryName, time + "_" + folddrName + "_" + fileName + extension));
+
+                    ///
+
                     sortBackgroundWorker.ReportProgress(Percents.Get(i, files.Length), files[i].FullName);// 进度传出
                 }
                 #region 异常

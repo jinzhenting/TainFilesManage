@@ -35,7 +35,6 @@
             this.inButton = new System.Windows.Forms.Button();
             this.outButton = new System.Windows.Forms.Button();
             this.outTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.sortButton = new System.Windows.Forms.Button();
             this.sortBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -49,6 +48,9 @@
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.homeMenuPanel = new System.Windows.Forms.Panel();
+            this.sortCheckBox = new System.Windows.Forms.CheckBox();
+            this.extensionTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -56,17 +58,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 38);
+            this.label1.Location = new System.Drawing.Point(12, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "归类文件夹";
+            this.label1.Text = "处理文件夹";
             // 
             // inTextBox
             // 
             this.inTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.inTextBox.Location = new System.Drawing.Point(86, 35);
+            this.inTextBox.Location = new System.Drawing.Point(86, 66);
             this.inTextBox.Name = "inTextBox";
             this.inTextBox.Size = new System.Drawing.Size(305, 23);
             this.inTextBox.TabIndex = 1;
@@ -74,7 +76,7 @@
             // inButton
             // 
             this.inButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inButton.Location = new System.Drawing.Point(397, 35);
+            this.inButton.Location = new System.Drawing.Point(397, 66);
             this.inButton.Name = "inButton";
             this.inButton.Size = new System.Drawing.Size(75, 23);
             this.inButton.TabIndex = 2;
@@ -85,7 +87,7 @@
             // outButton
             // 
             this.outButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.outButton.Location = new System.Drawing.Point(397, 64);
+            this.outButton.Location = new System.Drawing.Point(397, 95);
             this.outButton.Name = "outButton";
             this.outButton.Size = new System.Drawing.Size(75, 23);
             this.outButton.TabIndex = 5;
@@ -97,19 +99,10 @@
             // 
             this.outTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.outTextBox.Location = new System.Drawing.Point(86, 64);
+            this.outTextBox.Location = new System.Drawing.Point(120, 95);
             this.outTextBox.Name = "outTextBox";
-            this.outTextBox.Size = new System.Drawing.Size(305, 23);
+            this.outTextBox.Size = new System.Drawing.Size(271, 23);
             this.outTextBox.TabIndex = 4;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 67);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 17);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "目标文件夹";
             // 
             // sortButton
             // 
@@ -208,11 +201,41 @@
             this.homeMenuPanel.Size = new System.Drawing.Size(487, 1);
             this.homeMenuPanel.TabIndex = 26;
             // 
+            // sortCheckBox
+            // 
+            this.sortCheckBox.AutoSize = true;
+            this.sortCheckBox.Location = new System.Drawing.Point(15, 97);
+            this.sortCheckBox.Name = "sortCheckBox";
+            this.sortCheckBox.Size = new System.Drawing.Size(99, 21);
+            this.sortCheckBox.TabIndex = 27;
+            this.sortCheckBox.Text = "归类到文件夹";
+            this.sortCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // extensionTextBox
+            // 
+            this.extensionTextBox.Location = new System.Drawing.Point(86, 37);
+            this.extensionTextBox.Name = "extensionTextBox";
+            this.extensionTextBox.Size = new System.Drawing.Size(107, 23);
+            this.extensionTextBox.TabIndex = 28;
+            this.extensionTextBox.Text = "jpg,arw";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 17);
+            this.label2.TabIndex = 29;
+            this.label2.Text = "文件扩展名";
+            // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 386);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.extensionTextBox);
+            this.Controls.Add(this.sortCheckBox);
             this.Controls.Add(this.homeMenuPanel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.statusStrip1);
@@ -220,7 +243,6 @@
             this.Controls.Add(this.sortButton);
             this.Controls.Add(this.outButton);
             this.Controls.Add(this.outTextBox);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.inButton);
             this.Controls.Add(this.inTextBox);
             this.Controls.Add(this.label1);
@@ -247,7 +269,6 @@
         private System.Windows.Forms.Button inButton;
         private System.Windows.Forms.Button outButton;
         private System.Windows.Forms.TextBox outTextBox;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button sortButton;
         private System.ComponentModel.BackgroundWorker sortBackgroundWorker;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
@@ -261,6 +282,9 @@
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Panel homeMenuPanel;
+        private System.Windows.Forms.CheckBox sortCheckBox;
+        private System.Windows.Forms.TextBox extensionTextBox;
+        private System.Windows.Forms.Label label2;
     }
 }
 

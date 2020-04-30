@@ -48,10 +48,9 @@
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.homeMenuPanel = new System.Windows.Forms.Panel();
-            this.sortCheckBox = new System.Windows.Forms.CheckBox();
-            this.extensionTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.sort1RadioButton = new System.Windows.Forms.RadioButton();
+            this.sort2RadioButton = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.statusStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -59,25 +58,25 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 69);
+            this.label1.Location = new System.Drawing.Point(9, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 17);
+            this.label1.Size = new System.Drawing.Size(44, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "处理文件夹";
+            this.label1.Text = "文件夹";
             // 
             // inTextBox
             // 
             this.inTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.inTextBox.Location = new System.Drawing.Point(86, 66);
+            this.inTextBox.Location = new System.Drawing.Point(59, 36);
             this.inTextBox.Name = "inTextBox";
-            this.inTextBox.Size = new System.Drawing.Size(305, 23);
+            this.inTextBox.Size = new System.Drawing.Size(336, 23);
             this.inTextBox.TabIndex = 1;
             // 
             // inButton
             // 
             this.inButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inButton.Location = new System.Drawing.Point(397, 66);
+            this.inButton.Location = new System.Drawing.Point(401, 36);
             this.inButton.Name = "inButton";
             this.inButton.Size = new System.Drawing.Size(75, 23);
             this.inButton.TabIndex = 2;
@@ -88,27 +87,29 @@
             // outButton
             // 
             this.outButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.outButton.Location = new System.Drawing.Point(397, 95);
+            this.outButton.Location = new System.Drawing.Point(400, 90);
             this.outButton.Name = "outButton";
             this.outButton.Size = new System.Drawing.Size(75, 23);
             this.outButton.TabIndex = 5;
             this.outButton.Text = "浏览";
             this.outButton.UseVisualStyleBackColor = true;
+            this.outButton.Visible = false;
             this.outButton.Click += new System.EventHandler(this.outButton_Click);
             // 
             // outTextBox
             // 
             this.outTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.outTextBox.Location = new System.Drawing.Point(120, 95);
+            this.outTextBox.Location = new System.Drawing.Point(12, 90);
             this.outTextBox.Name = "outTextBox";
-            this.outTextBox.Size = new System.Drawing.Size(271, 23);
+            this.outTextBox.Size = new System.Drawing.Size(382, 23);
             this.outTextBox.TabIndex = 4;
+            this.outTextBox.Visible = false;
             // 
             // sortButton
             // 
             this.sortButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sortButton.Location = new System.Drawing.Point(316, 332);
+            this.sortButton.Location = new System.Drawing.Point(316, 145);
             this.sortButton.Name = "sortButton";
             this.sortButton.Size = new System.Drawing.Size(75, 23);
             this.sortButton.TabIndex = 6;
@@ -129,7 +130,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.progressBar,
             this.progressLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 364);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 177);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(484, 22);
             this.statusStrip1.TabIndex = 7;
@@ -149,7 +150,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(397, 332);
+            this.button1.Location = new System.Drawing.Point(397, 145);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 8;
@@ -202,52 +203,47 @@
             this.homeMenuPanel.Size = new System.Drawing.Size(487, 1);
             this.homeMenuPanel.TabIndex = 26;
             // 
-            // sortCheckBox
+            // sort1RadioButton
             // 
-            this.sortCheckBox.AutoSize = true;
-            this.sortCheckBox.Location = new System.Drawing.Point(15, 97);
-            this.sortCheckBox.Name = "sortCheckBox";
-            this.sortCheckBox.Size = new System.Drawing.Size(99, 21);
-            this.sortCheckBox.TabIndex = 27;
-            this.sortCheckBox.Text = "归类到文件夹";
-            this.sortCheckBox.UseVisualStyleBackColor = true;
+            this.sort1RadioButton.AutoSize = true;
+            this.sort1RadioButton.Location = new System.Drawing.Point(208, 65);
+            this.sort1RadioButton.Name = "sort1RadioButton";
+            this.sort1RadioButton.Size = new System.Drawing.Size(98, 21);
+            this.sort1RadioButton.TabIndex = 29;
+            this.sort1RadioButton.Text = "归类到文件夹";
+            this.sort1RadioButton.UseVisualStyleBackColor = true;
+            this.sort1RadioButton.CheckedChanged += new System.EventHandler(this.sort1RadioButton_CheckedChanged);
             // 
-            // extensionTextBox
+            // sort2RadioButton
             // 
-            this.extensionTextBox.Location = new System.Drawing.Point(86, 37);
-            this.extensionTextBox.Name = "extensionTextBox";
-            this.extensionTextBox.Size = new System.Drawing.Size(107, 23);
-            this.extensionTextBox.TabIndex = 28;
-            this.extensionTextBox.Text = "jpg,arw";
+            this.sort2RadioButton.AutoSize = true;
+            this.sort2RadioButton.Location = new System.Drawing.Point(80, 65);
+            this.sort2RadioButton.Name = "sort2RadioButton";
+            this.sort2RadioButton.Size = new System.Drawing.Size(122, 21);
+            this.sort2RadioButton.TabIndex = 30;
+            this.sort2RadioButton.Text = "在自身文件中归类";
+            this.sort2RadioButton.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // radioButton1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 17);
-            this.label2.TabIndex = 29;
-            this.label2.Text = "文件扩展名";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(397, 177);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 30;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(12, 65);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(62, 21);
+            this.radioButton1.TabIndex = 31;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "不归类";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 386);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.extensionTextBox);
-            this.Controls.Add(this.sortCheckBox);
+            this.ClientSize = new System.Drawing.Size(484, 199);
+            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.sort2RadioButton);
+            this.Controls.Add(this.sort1RadioButton);
             this.Controls.Add(this.homeMenuPanel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.statusStrip1);
@@ -294,10 +290,9 @@
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Panel homeMenuPanel;
-        private System.Windows.Forms.CheckBox sortCheckBox;
-        private System.Windows.Forms.TextBox extensionTextBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.RadioButton sort1RadioButton;
+        private System.Windows.Forms.RadioButton sort2RadioButton;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
 

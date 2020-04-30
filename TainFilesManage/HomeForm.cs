@@ -33,7 +33,7 @@ namespace TainFilesManage
         private void sortBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             DirectoryInfo directorys = new DirectoryInfo(e.Argument as string);// 遍历文件夹
-            FileInfo[] files = directorys.GetFiles("*."+ extensionTextBox.Text, SearchOption.AllDirectories);
+            FileInfo[] files = directorys.GetFiles("*.*", SearchOption.AllDirectories);
             for (int i = 0; i < files.Length; i++)
             {
                 if (sortBackgroundWorker.CancellationPending)// 取消检测
@@ -41,17 +41,77 @@ namespace TainFilesManage
                     e.Cancel = true;
                     return;
                 }
+                
+                ///
+
+                sortBackgroundWorker.ReportProgress(Percents.Get(i, files.Length), files[i].FullName);// 进度传出
+
+                ///
+
+                DirectoryInfo dir = new DirectoryInfo(files[i].DirectoryName);// 父级文件夹名称
+                string fileName = Path.GetFileNameWithoutExtension(files[i].Name).Replace("mmexport", "").Replace("wx_camera_", "");// 不包含扩展名的文件名
+                string extension = Path.GetExtension(files[i].Name).ToLower();// 扩展名
+                string folddrName = dir.Name;
+                string time;
 
                 ///
 
                 Regex regNum = new Regex(@"^(([0-9]{8})[_]).*");
-                if (regNum.IsMatch(files[i].Name)) continue;
+                if (regNum.IsMatch(files[i].Name))// 已重命名
+                {
+                    if (sort1RadioButton.Checked)// 归类
+                    {
+                        string endFolder = Path.Combine(outTextBox.Text, files[i].Name.Substring(0, 6));// 年月文件夹
+                        if (!Directory.Exists(endFolder)) Directory.CreateDirectory(endFolder);
+                        files[i].MoveTo(Path.Combine(endFolder, files[i].Name));
+                        continue;
+                    }
+                    else if (sort2RadioButton.Checked)
+                    {
+                        string endFolder = Path.Combine(files[i].DirectoryName, files[i].Name.Substring(0, 6));// 年月文件夹
+                        DirectoryInfo dirF = Directory.GetParent(dir.FullName);
+                        
+                        if (dir.Name == dirF.Name)// 如果多重同名目录，放到上一层
+                        {
+                            files[i].MoveTo(Path.Combine(dirF.FullName, files[i].Name));
+                            continue;
+                        }
+
+                        if (dir.Name == files[i].Name.Substring(0, 6)) continue;// 如果取到的文件夹名与自身文件夹名相同则跳过
+
+                        if (!Directory.Exists(endFolder)) Directory.CreateDirectory(endFolder);
+                        files[i].MoveTo(Path.Combine(endFolder, files[i].Name));
+                        continue;
+                    }
+                    else continue;
+                }
 
                 ///
 
                 try// 访问权限捕捉
                 {
-                    string time = DateFunction.GetPhotoData(files[i].FullName);// 返回空白，即此方法没有获取到有效信息
+                    switch (extension)
+                    {
+                        case ".jpg":
+                        case ".jpeg":
+                        case ".arw":
+                            {
+                                time = DateFunction.GetPhotoData(files[i].FullName);// 获取照片拍摄时间 // 返回空白，即此方法没有获取到有效信息
+                                break;
+                            }
+                        case ".mp4":
+                        case ".mov":
+                            {
+                                time = DateFunction.GetMediaData(files[i].FullName);// 获取媒体拍摄时间 // 返回空白，即此方法没有获取到有效信息
+                                break;
+                            }
+                        default:
+                            {
+                                time = "";
+                                if (MessageBox.Show("当前文件：" + files[i].FullName + "不支持获取拍摄时间\r\n\r\n是否继续归类其他文件？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK) break;
+                                else return;
+                            }
+                    }
                     if (time == "") time = string.Format("{0:yyyyMMdd}", files[i].LastWriteTime);// 获取文件最后写入时间
                     if (time == null)// 返回了null值，表示时间格式化时失败了
                     {
@@ -59,23 +119,19 @@ namespace TainFilesManage
                         return;
                     }
 
-                    ///
-
-                    DirectoryInfo dir = new DirectoryInfo(files[i].DirectoryName);// 父级文件夹名称
-                    string fileName = Path.GetFileNameWithoutExtension(files[i].Name).Replace("mmexport", "").Replace("wx_camera_", "");// 不包含扩展名的文件名
-                    string extension = Path.GetExtension(files[i].Name).ToLower();// 扩展名
-                    string folddrName = dir.Name;
-                    if (sortCheckBox.Checked)// 归类
+                    if (sort1RadioButton.Checked)// 归类
                     {
                         string endFolder = Path.Combine(outTextBox.Text, time.Substring(0, 6));// 年月文件夹
                         if (!Directory.Exists(endFolder)) Directory.CreateDirectory(endFolder);
                         files[i].MoveTo(Path.Combine(endFolder, time + "_" + folddrName + "_" + fileName + extension));
                     }
+                    else  if (sort2RadioButton.Checked)
+                    {
+                        string endFolder = Path.Combine(files[i].DirectoryName, time.Substring(0, 6));// 年月文件夹
+                        if (!Directory.Exists(endFolder)) Directory.CreateDirectory(endFolder);
+                        files[i].MoveTo(Path.Combine(endFolder, time + "_" + folddrName + "_" + fileName + extension));
+                    }
                     else files[i].MoveTo(Path.Combine(files[i].DirectoryName, time + "_" + folddrName + "_" + fileName + extension));
-
-                    ///
-
-                    sortBackgroundWorker.ReportProgress(Percents.Get(i, files.Length), files[i].FullName);// 进度传出
                 }
                 #region 异常
                 catch (UnauthorizedAccessException ex)
@@ -164,9 +220,13 @@ namespace TainFilesManage
             sortBackgroundWorker.CancelAsync();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void sort1RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            inTextBox.Text = DateFunction.GetMediaData(outTextBox.Text);
+            if (sort1RadioButton.Checked) outTextBox.Visible = outButton.Visible = true;
+            else outTextBox.Visible = outButton.Visible = false;
         }
 
         ///

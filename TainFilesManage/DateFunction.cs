@@ -51,21 +51,37 @@ namespace TainFilesManage
         }
 
         /// <summary>
+        /// 获取照片拍摄时间
+        /// </summary>
+        /// <param name="imagePath">文件路径</param>
+        /// <returns></returns>
+        public static string GetPhotoData(string imagePath)
+        {
+            var shell = new ShellClass();
+            var dir = shell.NameSpace(Path.GetDirectoryName(imagePath));
+            var item = dir.ParseName(Path.GetFileName(imagePath));
+            if (dir.GetDetailsOf(item, 12) != "") return DateFormat(dir.GetDetailsOf(item, 12));// 12 为照片拍摄时间
+            else return "";
+        }
+
+        /// <summary>
         /// 获取媒体拍摄时间
         /// </summary>
         /// <param name="imagePath">文件路径</param>
         /// <returns></returns>
         public static string GetMediaData(string imagePath)
         {
-            var shell = new ShellClass();
-            var dir = shell.NameSpace(Path.GetDirectoryName(imagePath));
-            var item = dir.ParseName(Path.GetFileName(imagePath));
-
-            for (int i = 0; i < 86; i++) {
-                Console.WriteLine(i+": "+dir.GetDetailsOf(item, i));
+            string date = "";
+            MediaInfo MI = new MediaInfo();
+            MI.Open(imagePath);
+            date = MI.Get(StreamKind.Video, 0, "Encoded_Date");// 视频编码UTC时间，要转换为北京时间
+            MI.Close();
+            if (date != "")
+            {
+                DateTime mediaUtcTime = Convert.ToDateTime(date.Replace("UTC ",""));
+                DateTime newTime = mediaUtcTime.AddHours(8);
+                return DateFormat(newTime.ToString());
             }
-
-            if (dir.GetDetailsOf(item, 12) != "") return DateFormat(dir.GetDetailsOf(item, 12));// 12 为照片拍摄时间
             else return "";
         }
 

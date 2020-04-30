@@ -51,7 +51,7 @@ namespace TainFilesManage
 
                 try// 访问权限捕捉
                 {
-                    string time = DateFunction.GetMediaData(files[i].FullName);// 返回空白，即此方法没有获取到有效信息
+                    string time = DateFunction.GetPhotoData(files[i].FullName);// 返回空白，即此方法没有获取到有效信息
                     if (time == "") time = string.Format("{0:yyyyMMdd}", files[i].LastWriteTime);// 获取文件最后写入时间
                     if (time == null)// 返回了null值，表示时间格式化时失败了
                     {
@@ -163,7 +163,11 @@ namespace TainFilesManage
         {
             sortBackgroundWorker.CancelAsync();
         }
-        
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            inTextBox.Text = DateFunction.GetMediaData(outTextBox.Text);
+        }
 
         ///
 

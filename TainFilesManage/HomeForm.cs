@@ -24,6 +24,7 @@ namespace TainFilesManage
         /// </summary>
         private void sortButton_Click(object sender, EventArgs e)
         {
+            if (sortBackgroundWorker.IsBusy) return;
             sortBackgroundWorker.RunWorkerAsync(inTextBox.Text);
         }
 
@@ -32,6 +33,7 @@ namespace TainFilesManage
         /// </summary>
         private void sortBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            sortBackgroundWorker.ReportProgress(1, "文件扫描中...");// 进度传出
             DirectoryInfo directorys = new DirectoryInfo(e.Argument as string);// 遍历文件夹
             FileInfo[] files = directorys.GetFiles("*.*", SearchOption.AllDirectories);
             for (int i = 0; i < files.Length; i++)
@@ -41,7 +43,7 @@ namespace TainFilesManage
                     e.Cancel = true;
                     return;
                 }
-                
+
                 ///
 
                 sortBackgroundWorker.ReportProgress(Percents.Get(i, files.Length), files[i].FullName);// 进度传出
@@ -70,7 +72,7 @@ namespace TainFilesManage
                     {
                         string endFolder = Path.Combine(files[i].DirectoryName, files[i].Name.Substring(0, 6));// 年月文件夹
                         DirectoryInfo dirF = Directory.GetParent(dir.FullName);
-                        
+
                         if (dir.Name == dirF.Name)// 如果多重同名目录，放到上一层
                         {
                             files[i].MoveTo(Path.Combine(dirF.FullName, files[i].Name));
@@ -101,6 +103,7 @@ namespace TainFilesManage
                             }
                         case ".mp4":
                         case ".mov":
+                        case ".avi":
                             {
                                 time = DateFunction.GetMediaData(files[i].FullName);// 获取媒体拍摄时间 // 返回空白，即此方法没有获取到有效信息
                                 break;
@@ -125,7 +128,7 @@ namespace TainFilesManage
                         if (!Directory.Exists(endFolder)) Directory.CreateDirectory(endFolder);
                         files[i].MoveTo(Path.Combine(endFolder, time + "_" + folddrName + "_" + fileName + extension));
                     }
-                    else  if (sort2RadioButton.Checked)
+                    else if (sort2RadioButton.Checked)
                     {
                         string endFolder = Path.Combine(files[i].DirectoryName, time.Substring(0, 6));// 年月文件夹
                         if (!Directory.Exists(endFolder)) Directory.CreateDirectory(endFolder);

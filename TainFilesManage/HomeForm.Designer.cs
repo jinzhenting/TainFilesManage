@@ -48,9 +48,9 @@
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.homeMenuPanel = new System.Windows.Forms.Panel();
-            this.sort1RadioButton = new System.Windows.Forms.RadioButton();
-            this.sort2RadioButton = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.specifyRadioButton = new System.Windows.Forms.RadioButton();
+            this.originalRadioButton = new System.Windows.Forms.RadioButton();
+            this.noSortRadioButton = new System.Windows.Forms.RadioButton();
             this.statusStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -203,47 +203,47 @@
             this.homeMenuPanel.Size = new System.Drawing.Size(487, 1);
             this.homeMenuPanel.TabIndex = 26;
             // 
-            // sort1RadioButton
+            // specifyRadioButton
             // 
-            this.sort1RadioButton.AutoSize = true;
-            this.sort1RadioButton.Location = new System.Drawing.Point(208, 65);
-            this.sort1RadioButton.Name = "sort1RadioButton";
-            this.sort1RadioButton.Size = new System.Drawing.Size(98, 21);
-            this.sort1RadioButton.TabIndex = 29;
-            this.sort1RadioButton.Text = "归类到文件夹";
-            this.sort1RadioButton.UseVisualStyleBackColor = true;
-            this.sort1RadioButton.CheckedChanged += new System.EventHandler(this.sort1RadioButton_CheckedChanged);
+            this.specifyRadioButton.AutoSize = true;
+            this.specifyRadioButton.Location = new System.Drawing.Point(208, 65);
+            this.specifyRadioButton.Name = "specifyRadioButton";
+            this.specifyRadioButton.Size = new System.Drawing.Size(98, 21);
+            this.specifyRadioButton.TabIndex = 29;
+            this.specifyRadioButton.Text = "归类到文件夹";
+            this.specifyRadioButton.UseVisualStyleBackColor = true;
+            this.specifyRadioButton.CheckedChanged += new System.EventHandler(this.sort1RadioButton_CheckedChanged);
             // 
-            // sort2RadioButton
+            // originalRadioButton
             // 
-            this.sort2RadioButton.AutoSize = true;
-            this.sort2RadioButton.Location = new System.Drawing.Point(80, 65);
-            this.sort2RadioButton.Name = "sort2RadioButton";
-            this.sort2RadioButton.Size = new System.Drawing.Size(122, 21);
-            this.sort2RadioButton.TabIndex = 30;
-            this.sort2RadioButton.Text = "在自身文件中归类";
-            this.sort2RadioButton.UseVisualStyleBackColor = true;
+            this.originalRadioButton.AutoSize = true;
+            this.originalRadioButton.Location = new System.Drawing.Point(80, 65);
+            this.originalRadioButton.Name = "originalRadioButton";
+            this.originalRadioButton.Size = new System.Drawing.Size(122, 21);
+            this.originalRadioButton.TabIndex = 30;
+            this.originalRadioButton.Text = "在自身文件中归类";
+            this.originalRadioButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // noSortRadioButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(12, 65);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(62, 21);
-            this.radioButton1.TabIndex = 31;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "不归类";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.noSortRadioButton.AutoSize = true;
+            this.noSortRadioButton.Checked = true;
+            this.noSortRadioButton.Location = new System.Drawing.Point(12, 65);
+            this.noSortRadioButton.Name = "noSortRadioButton";
+            this.noSortRadioButton.Size = new System.Drawing.Size(62, 21);
+            this.noSortRadioButton.TabIndex = 31;
+            this.noSortRadioButton.TabStop = true;
+            this.noSortRadioButton.Text = "不归类";
+            this.noSortRadioButton.UseVisualStyleBackColor = true;
             // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 199);
-            this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.sort2RadioButton);
-            this.Controls.Add(this.sort1RadioButton);
+            this.Controls.Add(this.noSortRadioButton);
+            this.Controls.Add(this.originalRadioButton);
+            this.Controls.Add(this.specifyRadioButton);
             this.Controls.Add(this.homeMenuPanel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.statusStrip1);
@@ -260,7 +260,7 @@
             this.MinimumSize = new System.Drawing.Size(500, 200);
             this.Name = "HomeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "多媒体文件归类工具";
+            this.Text = "多媒体文件命名工具";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
@@ -290,9 +290,9 @@
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Panel homeMenuPanel;
-        private System.Windows.Forms.RadioButton sort1RadioButton;
-        private System.Windows.Forms.RadioButton sort2RadioButton;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton specifyRadioButton;
+        private System.Windows.Forms.RadioButton originalRadioButton;
+        private System.Windows.Forms.RadioButton noSortRadioButton;
     }
 }
 

@@ -61,13 +61,13 @@ namespace TainFilesManage
                 string specifyFolder = outTextBox.Text;// 指定目标文件夹路径
                 string originalFolder = files[i].DirectoryName;// 自身文件夹路径
                 string originalFolderName = new DirectoryInfo(originalFolder).Name;// 自身文件夹名字
-                string yyyyMM = "";// 年月关键字
+                string yyyyMMdd = "";// 年月关键字
                 #endregion 关键元素
 
                 try
                 {
                     #region 获取年月关键字
-                    if (!rename) yyyyMM = files[i].Name.Substring(0, 6);// 不须重命名时，通过文件名获取年月关键字
+                    if (!rename) yyyyMMdd = files[i].Name.Substring(0, 6);// 不须重命名时，通过文件名获取年月关键字
                     else // 需要重命名时，通过读取文件信息获得年月关键字
                     {
                         switch (outExtension) // 扩展名检测 
@@ -76,7 +76,7 @@ namespace TainFilesManage
                             case ".jpeg":
                             case ".arw":
                                 {
-                                    yyyyMM = DateFunction.GetPhotoData(inPath);// 获取照片拍摄时间 // 返回空白，即此方法没有获取到有效信息
+                                    yyyyMMdd = DateFunction.GetPhotoData(inPath);// 获取照片拍摄时间 // 返回空白，即此方法没有获取到有效信息
                                     break;
                                 }
                             case ".mkv":// Matroska // 多媒体类，MediaInfo支持的格式，读取编码日期
@@ -126,17 +126,17 @@ namespace TainFilesManage
                             case ".sds":// Midi Sample dump Format
                             case ".avr":// Audio Visual Research
                                 {
-                                    yyyyMM = DateFunction.GetMediaData(inPath);// 获取媒体拍摄时间 // 返回空白，即此方法没有获取到有效信息
+                                    yyyyMMdd = DateFunction.GetMediaData(inPath);// 获取媒体拍摄时间 // 返回空白，即此方法没有获取到有效信息
                                     break;
                                 }
                             default:
                                 {
-                                    yyyyMM = "";
+                                    yyyyMMdd = "";
                                     if (MessageBox.Show("当前文件：" + inPath + "不支持获取拍摄时间\r\n\r\n是以最后的修改时间归类？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK) break;
                                     else continue;
                                 }
                         }
-                        if (yyyyMM == null)// 如果遍历完文件信息后，yyyyMM为null，表示通过读取文件信息获得年月关键字，时间格式化成yyyyMM时失败了
+                        if (yyyyMMdd == null)// 如果遍历完文件信息后，yyyyMM为null，表示通过读取文件信息获得年月关键字，时间格式化成yyyyMM时失败了
                         {
                             DialogResult msg = MessageBox.Show("当前文件：" + inPath + "获取最后的修改时间失败\r\n\r\n点击 “是” 以文件的最后修改时间归类此文件其他文件\r\n\r\n点击 “否” 跳过些文件，继续归类其他文件\r\n\r\n点击 “取消” 不再处理其他文件", "提示", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                             if (msg == DialogResult.Yes) { }
@@ -148,13 +148,13 @@ namespace TainFilesManage
                             }
                         }
                     }
-                    if (yyyyMM == "") yyyyMM = string.Format("{0:yyyyMMdd}", files[i].LastWriteTime);// 为空，表示通过读取文件信息获得年月关键字未成功 // 通过文件最后写入时间获得年月关键字
+                    if (yyyyMMdd == "") yyyyMMdd = string.Format("{0:yyyyMMdd}", files[i].LastWriteTime);// 为空，表示通过读取文件信息获得年月关键字未成功 // 通过文件最后写入时间获得年月关键字
                     #endregion 获取年月关键字
 
                     #region 重命名
                     if (rename)// 须重命名时
                     {
-                        outName = yyyyMM + "_" + originalFolderName + "_" + inName + outExtension;
+                        outName = yyyyMMdd + "_" + originalFolderName + "_" + inName + outExtension;
                         outPath = Path.Combine(originalFolder, outName);
                         files[i].MoveTo(outPath);
                         inPath = outPath;// 重命名后，将新路径赋绘inPath，不然后面归类时找不到文件
@@ -165,17 +165,17 @@ namespace TainFilesManage
                     #region 归类
                     if (sort)// 不须归类时跳过
                     {
-                        if (yyyyMM == originalFolderName) continue;// 自身文件夹名与年月关键字相同时不归类
+                        if (yyyyMMdd.Substring(0,6) == originalFolderName) continue;// 自身文件夹名与年月关键字相同时不归类
                         if (specifyRadioButton.Checked)// 归类到指定文件夹
                         {
-                            outPath = Path.Combine(specifyFolder, yyyyMM, outName);
+                            outPath = Path.Combine(specifyFolder, yyyyMMdd.Substring(0, 6), outName);
                             Sort(inPath, outPath);
                             continue;
                         }
                         if (originalRadioButton.Checked)// 在自身文件夹中归类
                         {
                             /// 以后增加父级文件夹同名检测
-                            outPath = Path.Combine(originalFolder, yyyyMM, outName);
+                            outPath = Path.Combine(originalFolder, yyyyMMdd.Substring(0, 6), outName);
                             Sort(inPath, outPath);
                             continue;
                         }
@@ -225,7 +225,7 @@ namespace TainFilesManage
         /// <returns></returns>
         private bool Rename(string fileName)
         {
-            Regex regNum = new Regex(@"^(([0-9]{6})[_]).*");// 检测文件是否已重命名
+            Regex regNum = new Regex(@"^(([0-9]{8})[_]).*");// 检测文件是否已重命名
             if (regNum.IsMatch(fileName)) return false;// 不须重命名
             else return true;
         }

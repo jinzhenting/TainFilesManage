@@ -37,16 +37,16 @@
             this.progressLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button2 = new System.Windows.Forms.Button();
             this.清除空白文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查看帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.版本升级ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button2 = new System.Windows.Forms.Button();
             this.originalRadioButton = new System.Windows.Forms.RadioButton();
             this.noSortRadioButton = new System.Windows.Forms.RadioButton();
             this.outTextBox = new System.Windows.Forms.TextBox();
@@ -55,10 +55,10 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -119,6 +119,13 @@
             this.文件ToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
             this.文件ToolStripMenuItem.Text = "文件(F)";
             // 
+            // 退出ToolStripMenuItem
+            // 
+            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.退出ToolStripMenuItem.Text = "退出";
+            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
+            // 
             // 工具ToolStripMenuItem
             // 
             this.工具ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -126,6 +133,12 @@
             this.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem";
             this.工具ToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
             this.工具ToolStripMenuItem.Text = "工具(T)";
+            // 
+            // 清除空白文件夹ToolStripMenuItem
+            // 
+            this.清除空白文件夹ToolStripMenuItem.Name = "清除空白文件夹ToolStripMenuItem";
+            this.清除空白文件夹ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.清除空白文件夹ToolStripMenuItem.Text = "清除空白文件夹";
             // 
             // 帮助ToolStripMenuItem
             // 
@@ -138,6 +151,30 @@
             this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
             this.帮助ToolStripMenuItem.Text = "帮助(H)";
             // 
+            // 关于ToolStripMenuItem
+            // 
+            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.关于ToolStripMenuItem.Text = "技术支持";
+            // 
+            // 查看帮助ToolStripMenuItem
+            // 
+            this.查看帮助ToolStripMenuItem.Name = "查看帮助ToolStripMenuItem";
+            this.查看帮助ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.查看帮助ToolStripMenuItem.Text = "查看帮助";
+            // 
+            // 版本升级ToolStripMenuItem
+            // 
+            this.版本升级ToolStripMenuItem.Name = "版本升级ToolStripMenuItem";
+            this.版本升级ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.版本升级ToolStripMenuItem.Text = "新版本";
+            // 
+            // 关于ToolStripMenuItem1
+            // 
+            this.关于ToolStripMenuItem1.Name = "关于ToolStripMenuItem1";
+            this.关于ToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
+            this.关于ToolStripMenuItem1.Text = "关于";
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -145,6 +182,7 @@
             // 
             // button2
             // 
+            this.button2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
@@ -157,58 +195,21 @@
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // 清除空白文件夹ToolStripMenuItem
-            // 
-            this.清除空白文件夹ToolStripMenuItem.Name = "清除空白文件夹ToolStripMenuItem";
-            this.清除空白文件夹ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.清除空白文件夹ToolStripMenuItem.Text = "清除空白文件夹";
-            // 
-            // 关于ToolStripMenuItem
-            // 
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.关于ToolStripMenuItem.Text = "技术支持";
-            // 
-            // 查看帮助ToolStripMenuItem
-            // 
-            this.查看帮助ToolStripMenuItem.Name = "查看帮助ToolStripMenuItem";
-            this.查看帮助ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.查看帮助ToolStripMenuItem.Text = "查看帮助";
-            // 
-            // 版本升级ToolStripMenuItem
-            // 
-            this.版本升级ToolStripMenuItem.Name = "版本升级ToolStripMenuItem";
-            this.版本升级ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.版本升级ToolStripMenuItem.Text = "新版本";
-            // 
-            // 关于ToolStripMenuItem1
-            // 
-            this.关于ToolStripMenuItem1.Name = "关于ToolStripMenuItem1";
-            this.关于ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.关于ToolStripMenuItem1.Text = "关于";
-            // 
-            // 退出ToolStripMenuItem
-            // 
-            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.退出ToolStripMenuItem.Text = "退出";
-            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
-            // 
             // originalRadioButton
             // 
             this.originalRadioButton.AutoSize = true;
-            this.originalRadioButton.Location = new System.Drawing.Point(83, 82);
+            this.originalRadioButton.Location = new System.Drawing.Point(77, 76);
             this.originalRadioButton.Name = "originalRadioButton";
-            this.originalRadioButton.Size = new System.Drawing.Size(122, 21);
+            this.originalRadioButton.Size = new System.Drawing.Size(134, 21);
             this.originalRadioButton.TabIndex = 30;
-            this.originalRadioButton.Text = "在自身文件中归类";
+            this.originalRadioButton.Text = "在自身文件夹中归类";
             this.originalRadioButton.UseVisualStyleBackColor = true;
             // 
             // noSortRadioButton
             // 
             this.noSortRadioButton.AutoSize = true;
             this.noSortRadioButton.Checked = true;
-            this.noSortRadioButton.Location = new System.Drawing.Point(15, 82);
+            this.noSortRadioButton.Location = new System.Drawing.Point(9, 76);
             this.noSortRadioButton.Name = "noSortRadioButton";
             this.noSortRadioButton.Size = new System.Drawing.Size(62, 21);
             this.noSortRadioButton.TabIndex = 31;
@@ -220,7 +221,7 @@
             // 
             this.outTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.outTextBox.Location = new System.Drawing.Point(315, 81);
+            this.outTextBox.Location = new System.Drawing.Point(486, 75);
             this.outTextBox.Name = "outTextBox";
             this.outTextBox.Size = new System.Drawing.Size(76, 23);
             this.outTextBox.TabIndex = 4;
@@ -229,7 +230,7 @@
             // inTextBox
             // 
             this.inTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inTextBox.Location = new System.Drawing.Point(397, 81);
+            this.inTextBox.Location = new System.Drawing.Point(391, 75);
             this.inTextBox.Name = "inTextBox";
             this.inTextBox.Size = new System.Drawing.Size(89, 23);
             this.inTextBox.TabIndex = 1;
@@ -238,16 +239,17 @@
             // specifyRadioButton
             // 
             this.specifyRadioButton.AutoSize = true;
-            this.specifyRadioButton.Location = new System.Drawing.Point(211, 82);
+            this.specifyRadioButton.Location = new System.Drawing.Point(217, 76);
             this.specifyRadioButton.Name = "specifyRadioButton";
-            this.specifyRadioButton.Size = new System.Drawing.Size(98, 21);
+            this.specifyRadioButton.Size = new System.Drawing.Size(122, 21);
             this.specifyRadioButton.TabIndex = 29;
-            this.specifyRadioButton.Text = "归类到文件夹";
+            this.specifyRadioButton.Text = "归类到目标文件夹";
             this.specifyRadioButton.UseVisualStyleBackColor = true;
             this.specifyRadioButton.CheckedChanged += new System.EventHandler(this.sort1RadioButton_CheckedChanged);
             // 
             // button3
             // 
+            this.button3.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
@@ -263,6 +265,7 @@
             // 
             // button4
             // 
+            this.button4.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
@@ -287,12 +290,16 @@
             this.columnHeader2,
             this.columnHeader4});
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(-2, 109);
+            this.listView1.Location = new System.Drawing.Point(-2, 99);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(788, 431);
+            this.listView1.Size = new System.Drawing.Size(788, 441);
             this.listView1.TabIndex = 39;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "状态";
             // 
             // columnHeader1
             // 
@@ -309,12 +316,9 @@
             this.columnHeader4.Text = "错误信息";
             this.columnHeader4.Width = 100;
             // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "状态";
-            // 
             // button5
             // 
+            this.button5.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
@@ -330,6 +334,7 @@
             // 
             // button6
             // 
+            this.button6.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.button6.FlatAppearance.BorderSize = 0;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Image = ((System.Drawing.Image)(resources.GetObject("button6.Image")));
@@ -344,6 +349,8 @@
             // 
             // button7
             // 
+            this.button7.Enabled = false;
+            this.button7.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.button7.FlatAppearance.BorderSize = 0;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Image = ((System.Drawing.Image)(resources.GetObject("button7.Image")));

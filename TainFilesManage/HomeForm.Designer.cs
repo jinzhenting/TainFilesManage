@@ -63,6 +63,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -221,7 +222,7 @@
             // 
             this.outTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.outTextBox.Location = new System.Drawing.Point(486, 75);
+            this.outTextBox.Location = new System.Drawing.Point(706, 38);
             this.outTextBox.Name = "outTextBox";
             this.outTextBox.Size = new System.Drawing.Size(76, 23);
             this.outTextBox.TabIndex = 4;
@@ -230,7 +231,7 @@
             // inTextBox
             // 
             this.inTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inTextBox.Location = new System.Drawing.Point(391, 75);
+            this.inTextBox.Location = new System.Drawing.Point(611, 38);
             this.inTextBox.Name = "inTextBox";
             this.inTextBox.Size = new System.Drawing.Size(89, 23);
             this.inTextBox.TabIndex = 1;
@@ -374,11 +375,21 @@
             this.panel3.Size = new System.Drawing.Size(787, 1);
             this.panel3.TabIndex = 27;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(345, 78);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(221, 17);
+            this.label1.TabIndex = 44;
+            this.label1.Text = "* 归类规则：移动到yyyyMM命名文件夹";
+            // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.outTextBox);
             this.Controls.Add(this.specifyRadioButton);
             this.Controls.Add(this.inTextBox);
@@ -445,6 +456,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label1;
     }
 }
 

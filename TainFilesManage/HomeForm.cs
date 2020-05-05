@@ -326,8 +326,39 @@ namespace TainFilesManage
         /// </summary>
         private void sort1RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (specifyRadioButton.Checked) outTextBox.Visible = outButton.Visible = true;
-            else outTextBox.Visible = outButton.Visible = false;
+            if (specifyRadioButton.Checked) outTextBox.Enabled = button7.Enabled = true;
+            else outTextBox.Enabled = button7.Enabled = false;
+        }
+
+        private void HomeForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (sortBackgroundWorker.IsBusy) return;
+            sortBackgroundWorker.RunWorkerAsync(inTextBox.Text); 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            sortBackgroundWorker.CancelAsync();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) inTextBox.Text = folderBrowserDialog1.SelectedPath;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) outTextBox.Text = folderBrowserDialog1.SelectedPath;
+        }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         ///

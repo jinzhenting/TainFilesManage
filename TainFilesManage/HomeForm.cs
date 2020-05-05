@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TainFilesManage
@@ -67,7 +61,7 @@ namespace TainFilesManage
                 try
                 {
                     #region 获取年月关键字
-                    if (!rename) yyyyMMdd = files[i].Name.Substring(0, 6);// 不须重命名时，通过文件名获取年月关键字
+                    if (!rename) yyyyMMdd = files[i].Name.Substring(0, 8);// 不须重命名时，通过文件名获取年月关键字
                     else // 需要重命名时，通过读取文件信息获得年月关键字
                     {
                         switch (outExtension) // 扩展名检测 
@@ -252,7 +246,7 @@ namespace TainFilesManage
         }
 
         /// <summary>
-        /// 文件名增加版本（_x）后缀
+        /// 文件名增加版本（_i）后缀
         /// </summary>
         /// <param name="name">传入文件名</param>
         /// <returns>传出文件名</returns>

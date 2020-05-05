@@ -220,18 +220,18 @@
             // 
             this.outTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.outTextBox.Location = new System.Drawing.Point(310, 81);
+            this.outTextBox.Location = new System.Drawing.Point(315, 81);
             this.outTextBox.Name = "outTextBox";
-            this.outTextBox.Size = new System.Drawing.Size(469, 23);
+            this.outTextBox.Size = new System.Drawing.Size(76, 23);
             this.outTextBox.TabIndex = 4;
             this.outTextBox.Visible = false;
             // 
             // inTextBox
             // 
             this.inTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inTextBox.Location = new System.Drawing.Point(754, 35);
+            this.inTextBox.Location = new System.Drawing.Point(397, 81);
             this.inTextBox.Name = "inTextBox";
-            this.inTextBox.Size = new System.Drawing.Size(18, 23);
+            this.inTextBox.Size = new System.Drawing.Size(89, 23);
             this.inTextBox.TabIndex = 1;
             this.inTextBox.Visible = false;
             // 

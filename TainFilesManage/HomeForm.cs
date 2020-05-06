@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -13,6 +14,17 @@ namespace TainFilesManage
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 列表项目集
+        /// </summary>
+        private struct files
+        {
+            string state;
+            string oldName;
+            string newName;
+            string error;
+        }
+        
         /// <summary>
         /// 开始归类按钮
         /// </summary>

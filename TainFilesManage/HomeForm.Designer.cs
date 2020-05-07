@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeForm));
-            this.sortBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.scanBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -54,13 +54,13 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.originalRadioButton = new System.Windows.Forms.RadioButton();
-            this.noSortRadioButton = new System.Windows.Forms.RadioButton();
+            this.noscanRadioButton = new System.Windows.Forms.RadioButton();
             this.outTextBox = new System.Windows.Forms.TextBox();
             this.inTextBox = new System.Windows.Forms.TextBox();
             this.specifyRadioButton = new System.Windows.Forms.RadioButton();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listView1 = new DoubleBufferListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -73,17 +73,18 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.sortBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // sortBackgroundWorker
+            // scanBackgroundWorker
             // 
-            this.sortBackgroundWorker.WorkerReportsProgress = true;
-            this.sortBackgroundWorker.WorkerSupportsCancellation = true;
-            this.sortBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.sortBackgroundWorker_DoWork);
-            this.sortBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.sortBackgroundWorker_ProgressChanged);
-            this.sortBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.sortBackgroundWorker_RunWorkerCompleted);
+            this.scanBackgroundWorker.WorkerReportsProgress = true;
+            this.scanBackgroundWorker.WorkerSupportsCancellation = true;
+            this.scanBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.scanBackgroundWorker_DoWork);
+            this.scanBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.scanBackgroundWorker_ProgressChanged);
+            this.scanBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.scanBackgroundWorker_RunWorkerCompleted);
             // 
             // statusStrip1
             // 
@@ -257,17 +258,17 @@
             this.originalRadioButton.Text = "在自身文件夹中归类";
             this.originalRadioButton.UseVisualStyleBackColor = true;
             // 
-            // noSortRadioButton
+            // noscanRadioButton
             // 
-            this.noSortRadioButton.AutoSize = true;
-            this.noSortRadioButton.Checked = true;
-            this.noSortRadioButton.Location = new System.Drawing.Point(9, 77);
-            this.noSortRadioButton.Name = "noSortRadioButton";
-            this.noSortRadioButton.Size = new System.Drawing.Size(62, 21);
-            this.noSortRadioButton.TabIndex = 31;
-            this.noSortRadioButton.TabStop = true;
-            this.noSortRadioButton.Text = "不归类";
-            this.noSortRadioButton.UseVisualStyleBackColor = true;
+            this.noscanRadioButton.AutoSize = true;
+            this.noscanRadioButton.Checked = true;
+            this.noscanRadioButton.Location = new System.Drawing.Point(9, 77);
+            this.noscanRadioButton.Name = "noscanRadioButton";
+            this.noscanRadioButton.Size = new System.Drawing.Size(62, 21);
+            this.noscanRadioButton.TabIndex = 31;
+            this.noscanRadioButton.TabStop = true;
+            this.noscanRadioButton.Text = "不归类";
+            this.noscanRadioButton.UseVisualStyleBackColor = true;
             // 
             // outTextBox
             // 
@@ -297,7 +298,7 @@
             this.specifyRadioButton.TabIndex = 29;
             this.specifyRadioButton.Text = "归类到目标文件夹";
             this.specifyRadioButton.UseVisualStyleBackColor = true;
-            this.specifyRadioButton.CheckedChanged += new System.EventHandler(this.sort1RadioButton_CheckedChanged);
+            this.specifyRadioButton.CheckedChanged += new System.EventHandler(this.scan1RadioButton_CheckedChanged);
             // 
             // button3
             // 
@@ -485,6 +486,14 @@
             this.checkBox1.Text = "扩展名小写";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // sortBackgroundWorker
+            // 
+            this.sortBackgroundWorker.WorkerReportsProgress = true;
+            this.sortBackgroundWorker.WorkerSupportsCancellation = true;
+            this.sortBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.sortBackgroundWorker_DoWork);
+            this.sortBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.sortBackgroundWorker_ProgressChanged);
+            this.sortBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.sortBackgroundWorker_RunWorkerCompleted);
+            // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -496,7 +505,7 @@
             this.Controls.Add(this.outTextBox);
             this.Controls.Add(this.specifyRadioButton);
             this.Controls.Add(this.inTextBox);
-            this.Controls.Add(this.noSortRadioButton);
+            this.Controls.Add(this.noscanRadioButton);
             this.Controls.Add(this.originalRadioButton);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.statusStrip1);
@@ -527,7 +536,7 @@
         }
 
         #endregion
-        private System.ComponentModel.BackgroundWorker sortBackgroundWorker;
+        private System.ComponentModel.BackgroundWorker scanBackgroundWorker;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar progressBar;
@@ -547,11 +556,11 @@
         private System.Windows.Forms.RadioButton specifyRadioButton;
         private System.Windows.Forms.TextBox inTextBox;
         private System.Windows.Forms.TextBox outTextBox;
-        private System.Windows.Forms.RadioButton noSortRadioButton;
+        private System.Windows.Forms.RadioButton noscanRadioButton;
         private System.Windows.Forms.RadioButton originalRadioButton;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.ListView listView1;
+        private DoubleBufferListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -570,6 +579,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.ComponentModel.BackgroundWorker sortBackgroundWorker;
     }
 }
 

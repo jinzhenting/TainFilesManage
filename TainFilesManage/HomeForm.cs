@@ -22,35 +22,35 @@ namespace TainFilesManage
         /// <summary>
         /// 开始整理按钮
         /// </summary>
-        private void sortButton_Click(object sender, EventArgs e)
+        private void scanButton_Click(object sender, EventArgs e)
         {
-            if (sortBackgroundWorker.IsBusy) return;
-            sortBackgroundWorker.RunWorkerAsync(inTextBox.Text);
+            if (scanBackgroundWorker.IsBusy) return;
+            scanBackgroundWorker.RunWorkerAsync(inTextBox.Text);
         }
 
         /// <summary>
         /// 导步整理开始
         /// </summary>
-        private void sortBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void scanBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             if (items.Count != 0) items.Clear();
-            sortBackgroundWorker.ReportProgress(1, "文件扫描中...");// 进度传出
+            scanBackgroundWorker.ReportProgress(1, "文件扫描中...");// 进度传出
             DirectoryInfo directorys = new DirectoryInfo(e.Argument as string);// 遍历文件夹
             FileInfo[] files = directorys.GetFiles("*.*", SearchOption.AllDirectories);
             for (int i = 0; i < files.Length; i++)
             {
-                if (sortBackgroundWorker.CancellationPending)// 取消检测
+                if (scanBackgroundWorker.CancellationPending)// 取消检测
                 {
                     e.Cancel = true;
                     return;
                 }
-                sortBackgroundWorker.ReportProgress(Percents.Get(i, files.Length), files[i].FullName);// 进度传出
+                scanBackgroundWorker.ReportProgress(Percents.Get(i, files.Length), files[i].FullName);// 进度传出
 
                 ///
 
                 bool rename = Rename(files[i].Name);// 是否重命名
-                bool sort = !noSortRadioButton.Checked;// 是否整理
-                //if (!rename && !sort) continue;// 
+                bool scan = !noscanRadioButton.Checked;// 是否整理
+                //if (!rename && !scan) continue;// 
 
                 #region 关键元素
                 string inPath = files[i].FullName;// 旧路径
@@ -184,11 +184,15 @@ namespace TainFilesManage
                         outName = yyyyMMdd + "_" + originalFolderName + "_" + inName + outExtension;
                         outPath = Path.Combine(originalFolder, outName);
                     }
-                    else outName = inName + outExtension;// 不须重命名时
+                    else// 不须重命名时
+                    {
+                        outName = inName + outExtension;
+                        outPath = inPath;
+                    }
                     #endregion 重命名
 
                     #region 整理
-                    if (sort)// 不须整理时跳过
+                    if (scan)// 不须整理时跳过
                     {
                         if (yyyyMMdd.Substring(0, 6) == originalFolderName) { }// 自身文件夹名与年月关键字相同时不整理
                         if (specifyRadioButton.Checked) outPath = Path.Combine(specifyFolder, yyyyMMdd.Substring(0, 6), outName);// 整理到指定文件夹
@@ -253,7 +257,7 @@ namespace TainFilesManage
         /// </summary>
         /// <param name="inPath">旧路径</param>
         /// <param name="outPath">新路径</param>
-        private void Sort(string inPath, string outPath)
+        private void Move(string inPath, string outPath)
         {
             if (inPath.ToLower() == outPath.ToLower()) return;// 相同位置时跳过
             if (File.Exists(outPath))// 如果新文件已存在同名文件
@@ -293,7 +297,7 @@ namespace TainFilesManage
         /// <summary>
         /// 导步整理进度
         /// </summary>
-        private void sortBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void scanBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar.Value = (e.ProgressPercentage < 101) ? e.ProgressPercentage : progressBar.Value;
             progressLabel.Text = progressBar.Value.ToString() + "% " + e.UserState as string;
@@ -302,7 +306,7 @@ namespace TainFilesManage
         /// <summary>
         /// 导步整理结束
         /// </summary>
-        private void sortBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void scanBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -318,7 +322,7 @@ namespace TainFilesManage
             }
             foreach (ListViewItem it in items) listView1.Items.Add(it);
             progressBar.Value = 100;
-            progressLabel.Text = "完成";
+            progressLabel.Text = items.Count.ToString() + "个文件等待整理";
         }
 
         /// <summary>
@@ -342,13 +346,13 @@ namespace TainFilesManage
         /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            sortBackgroundWorker.CancelAsync();
+            scanBackgroundWorker.CancelAsync();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private void sort1RadioButton_CheckedChanged(object sender, EventArgs e)
+        private void scan1RadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (specifyRadioButton.Checked) outTextBox.Enabled = button7.Enabled = true;
             else outTextBox.Enabled = button7.Enabled = false;
@@ -361,8 +365,7 @@ namespace TainFilesManage
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (sortBackgroundWorker.IsBusy) return;
-            sortBackgroundWorker.RunWorkerAsync(inTextBox.Text);
+            sortBackgroundWorker.RunWorkerAsync();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -372,7 +375,8 @@ namespace TainFilesManage
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) inTextBox.Text = folderBrowserDialog1.SelectedPath;
+            if (scanBackgroundWorker.IsBusy) return;
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) scanBackgroundWorker.RunWorkerAsync(folderBrowserDialog1.SelectedPath);
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -397,6 +401,47 @@ namespace TainFilesManage
             listView1.Columns[2].Width = 300;
             listView1.Columns[3].Width = 100;
         }
+
+        private void sortBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            sortBackgroundWorker.ReportProgress(1, "文件整理中...");// 进度传出
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (sortBackgroundWorker.CancellationPending)// 取消检测
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                sortBackgroundWorker.ReportProgress(Percents.Get(i, items.Count), "正在整理 "+items[i].SubItems[0].Text);// 进度传出
+                Move(items[i].SubItems[1].Text, items[i].SubItems[2].Text);
+            }
+        }
+
+        private void sortBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar.Value = (e.ProgressPercentage < 101) ? e.ProgressPercentage : progressBar.Value;
+            progressLabel.Text = progressBar.Value.ToString() + "% " + e.UserState as string;
+        }
+
+        private void sortBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                progressLabel.Text = "后台错误";
+                progressBar.Value = 0;
+                return;
+            }
+
+            if (e.Cancelled)
+            {
+                progressLabel.Text = "已取消";
+                return;
+            }
+
+            progressBar.Value = 100;
+            progressLabel.Text = "整理完毕";
+        }
+
         ///
 
     }

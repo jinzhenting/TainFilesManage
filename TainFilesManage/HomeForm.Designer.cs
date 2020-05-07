@@ -37,9 +37,15 @@
             this.progressLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.添加文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.添加文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.开始整理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.停止整理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.清除空白文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.选项ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查看帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,12 +70,6 @@
             this.button7 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.选项ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.添加文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.添加文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.开始整理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.停止整理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -134,10 +134,39 @@
             this.文件ToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
             this.文件ToolStripMenuItem.Text = "文件(F)";
             // 
+            // 添加文件ToolStripMenuItem
+            // 
+            this.添加文件ToolStripMenuItem.Name = "添加文件ToolStripMenuItem";
+            this.添加文件ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.添加文件ToolStripMenuItem.Text = "添加文件";
+            // 
+            // 添加文件夹ToolStripMenuItem
+            // 
+            this.添加文件夹ToolStripMenuItem.Name = "添加文件夹ToolStripMenuItem";
+            this.添加文件夹ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.添加文件夹ToolStripMenuItem.Text = "添加文件夹";
+            // 
+            // 开始整理ToolStripMenuItem
+            // 
+            this.开始整理ToolStripMenuItem.Name = "开始整理ToolStripMenuItem";
+            this.开始整理ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.开始整理ToolStripMenuItem.Text = "开始整理";
+            // 
+            // 停止整理ToolStripMenuItem
+            // 
+            this.停止整理ToolStripMenuItem.Name = "停止整理ToolStripMenuItem";
+            this.停止整理ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.停止整理ToolStripMenuItem.Text = "停止整理";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(133, 6);
+            // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
@@ -156,6 +185,12 @@
             this.清除空白文件夹ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.清除空白文件夹ToolStripMenuItem.Text = "清除空白文件夹";
             // 
+            // 选项ToolStripMenuItem
+            // 
+            this.选项ToolStripMenuItem.Name = "选项ToolStripMenuItem";
+            this.选项ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.选项ToolStripMenuItem.Text = "选项";
+            // 
             // 帮助ToolStripMenuItem
             // 
             this.帮助ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -170,25 +205,25 @@
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.关于ToolStripMenuItem.Text = "技术支持";
             // 
             // 查看帮助ToolStripMenuItem
             // 
             this.查看帮助ToolStripMenuItem.Name = "查看帮助ToolStripMenuItem";
-            this.查看帮助ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.查看帮助ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.查看帮助ToolStripMenuItem.Text = "查看帮助";
             // 
             // 版本升级ToolStripMenuItem
             // 
             this.版本升级ToolStripMenuItem.Name = "版本升级ToolStripMenuItem";
-            this.版本升级ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.版本升级ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.版本升级ToolStripMenuItem.Text = "新版本";
             // 
             // 关于ToolStripMenuItem1
             // 
             this.关于ToolStripMenuItem1.Name = "关于ToolStripMenuItem1";
-            this.关于ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.关于ToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.关于ToolStripMenuItem1.Text = "关于";
             // 
             // contextMenuStrip1
@@ -237,18 +272,18 @@
             // 
             this.outTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.outTextBox.Location = new System.Drawing.Point(689, 442);
+            this.outTextBox.Location = new System.Drawing.Point(821, 471);
             this.outTextBox.Name = "outTextBox";
-            this.outTextBox.Size = new System.Drawing.Size(276, 23);
+            this.outTextBox.Size = new System.Drawing.Size(62, 23);
             this.outTextBox.TabIndex = 4;
             this.outTextBox.Visible = false;
             // 
             // inTextBox
             // 
             this.inTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inTextBox.Location = new System.Drawing.Point(794, 442);
+            this.inTextBox.Location = new System.Drawing.Point(821, 442);
             this.inTextBox.Name = "inTextBox";
-            this.inTextBox.Size = new System.Drawing.Size(89, 23);
+            this.inTextBox.Size = new System.Drawing.Size(62, 23);
             this.inTextBox.TabIndex = 1;
             this.inTextBox.Visible = false;
             // 
@@ -319,12 +354,12 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "文件";
+            this.columnHeader1.Text = "文件路径";
             this.columnHeader1.Width = 300;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "新文件";
+            this.columnHeader2.Text = "文件整理路径";
             this.columnHeader2.Width = 300;
             // 
             // columnHeader4
@@ -405,41 +440,6 @@
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // 选项ToolStripMenuItem
-            // 
-            this.选项ToolStripMenuItem.Name = "选项ToolStripMenuItem";
-            this.选项ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.选项ToolStripMenuItem.Text = "选项";
-            // 
-            // 添加文件ToolStripMenuItem
-            // 
-            this.添加文件ToolStripMenuItem.Name = "添加文件ToolStripMenuItem";
-            this.添加文件ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.添加文件ToolStripMenuItem.Text = "添加文件";
-            // 
-            // 添加文件夹ToolStripMenuItem
-            // 
-            this.添加文件夹ToolStripMenuItem.Name = "添加文件夹ToolStripMenuItem";
-            this.添加文件夹ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.添加文件夹ToolStripMenuItem.Text = "添加文件夹";
-            // 
-            // 开始整理ToolStripMenuItem
-            // 
-            this.开始整理ToolStripMenuItem.Name = "开始整理ToolStripMenuItem";
-            this.开始整理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.开始整理ToolStripMenuItem.Text = "开始整理";
-            // 
-            // 停止整理ToolStripMenuItem
-            // 
-            this.停止整理ToolStripMenuItem.Name = "停止整理ToolStripMenuItem";
-            this.停止整理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.停止整理ToolStripMenuItem.Text = "停止整理";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
             // button8
             // 
             this.button8.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
@@ -454,6 +454,7 @@
             this.button8.Text = "清除";
             this.button8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 

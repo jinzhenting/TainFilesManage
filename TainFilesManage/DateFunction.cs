@@ -103,8 +103,8 @@ namespace TainFilesManage
             }
             string year_temp = match.Groups[1].Value;// 年转换
             string month_temp = Months(match.Groups[2].Value);// 月转换
-            //string day_temp = Day(match.Groups[3].Value);// 日转换
-            return year_temp + month_temp;
+            string day_temp = Day(match.Groups[3].Value);// 日转换
+            return year_temp + month_temp + day_temp;
         }
 
         /// <summary>

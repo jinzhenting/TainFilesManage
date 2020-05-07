@@ -17,16 +17,10 @@ namespace TainFilesManage
         /// <summary>
         /// 列表项目集
         /// </summary>
-        private struct files
-        {
-            string state;
-            string oldName;
-            string newName;
-            string error;
-        }
-        
+        private List<ListViewItem> items = new List<ListViewItem>();
+
         /// <summary>
-        /// 开始归类按钮
+        /// 开始整理按钮
         /// </summary>
         private void sortButton_Click(object sender, EventArgs e)
         {
@@ -35,7 +29,7 @@ namespace TainFilesManage
         }
 
         /// <summary>
-        /// 导步归类开始
+        /// 导步整理开始
         /// </summary>
         private void sortBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -54,8 +48,8 @@ namespace TainFilesManage
                 ///
 
                 bool rename = Rename(files[i].Name);// 是否重命名
-                bool sort = !noSortRadioButton.Checked;// 是否归类
-                if (!rename && !sort) continue;// 
+                bool sort = !noSortRadioButton.Checked;// 是否整理
+                //if (!rename && !sort) continue;// 
 
                 #region 关键元素
                 string inPath = files[i].FullName;// 旧路径
@@ -68,8 +62,16 @@ namespace TainFilesManage
                 string originalFolder = files[i].DirectoryName;// 自身文件夹路径
                 string originalFolderName = new DirectoryInfo(originalFolder).Name;// 自身文件夹名字
                 string yyyyMMdd = "";// 年月关键字
+                string errers = "";
                 #endregion 关键元素
 
+                if (items.Count != 0) items.Clear();
+                ListViewItem listViewItem = new ListViewItem();// 定义单个项目
+                listViewItem.ImageIndex = i;// 
+                //listViewItem.Text = outName+ outExtension;// 项目名
+                listViewItem.Text="待整理";// 状态
+                listViewItem.SubItems.Add(inPath);// 文件位置
+                
                 try
                 {
                     #region 获取年月关键字
@@ -138,15 +140,34 @@ namespace TainFilesManage
                             default:
                                 {
                                     yyyyMMdd = "";
-                                    if (MessageBox.Show("当前文件：" + inPath + "不支持获取拍摄时间\r\n\r\n是以最后的修改时间归类？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK) break;
-                                    else continue;
+                                    if (MessageBox.Show("当前文件：" + inPath + "不支持获取拍摄时间\r\n\r\n是否以最后的修改时间整理？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                                    {
+                                        listViewItem.Text = "待整理";// 状态
+                                        errers = "格式不支持获取拍摄时间，以最后的修改时间整理";
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        listViewItem.Text = "不整理";// 状态
+                                        errers = "格式不支持获取拍摄时间，不整理";
+                                        continue;
+                                    }
                                 }
                         }
                         if (yyyyMMdd == null)// 如果遍历完文件信息后，yyyyMM为null，表示通过读取文件信息获得年月关键字，时间格式化成yyyyMM时失败了
                         {
-                            DialogResult msg = MessageBox.Show("当前文件：" + inPath + "获取最后的修改时间失败\r\n\r\n点击 “是” 以文件的最后修改时间归类此文件其他文件\r\n\r\n点击 “否” 跳过些文件，继续归类其他文件\r\n\r\n点击 “取消” 不再处理其他文件", "提示", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                            if (msg == DialogResult.Yes) { }
-                            else if (msg == DialogResult.No) break;
+                            DialogResult msg = MessageBox.Show("当前文件：" + inPath + "拍摄时间格式化失败\r\n\r\n点击 “是” 以文件的最后修改时间整理此文件其他文件\r\n\r\n点击 “否” 跳过些文件，继续整理其他文件\r\n\r\n点击 “取消” 停止处理", "提示", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                            if (msg == DialogResult.Yes)
+                            {
+                                listViewItem.Text = "待整理";// 状态
+                                errers = "拍摄时间格式化失败，以最后的修改时间整理";
+                                break;
+                            }
+                            else if (msg == DialogResult.No) {
+                                listViewItem.Text = "不整理";// 状态
+                                errers = "拍摄时间格式化失败，不整理";
+                                continue;
+                            } 
                             else
                             {
                                 e.Cancel = true;
@@ -162,31 +183,23 @@ namespace TainFilesManage
                     {
                         outName = yyyyMMdd + "_" + originalFolderName + "_" + inName + outExtension;
                         outPath = Path.Combine(originalFolder, outName);
-                        files[i].MoveTo(outPath);
-                        inPath = outPath;// 重命名后，将新路径赋绘inPath，不然后面归类时找不到文件
+                        inPath = outPath;// 重命名后，将新路径赋绘inPath，不然后面整理时找不到文件
                     }
                     else outName = inName + outExtension;// 不须重命名时
                     #endregion 重命名
 
-                    #region 归类
-                    if (sort)// 不须归类时跳过
+                    #region 整理
+                    if (sort)// 不须整理时跳过
                     {
-                        if (yyyyMMdd.Substring(0,6) == originalFolderName) continue;// 自身文件夹名与年月关键字相同时不归类
-                        if (specifyRadioButton.Checked)// 归类到指定文件夹
-                        {
-                            outPath = Path.Combine(specifyFolder, yyyyMMdd.Substring(0, 6), outName);
-                            Sort(inPath, outPath);
-                            continue;
-                        }
-                        if (originalRadioButton.Checked)// 在自身文件夹中归类
-                        {
-                            /// 以后增加父级文件夹同名检测
-                            outPath = Path.Combine(originalFolder, yyyyMMdd.Substring(0, 6), outName);
-                            Sort(inPath, outPath);
-                            continue;
-                        }
+                        if (yyyyMMdd.Substring(0, 6) == originalFolderName) continue;// 自身文件夹名与年月关键字相同时不整理
+                        if (specifyRadioButton.Checked) outPath = Path.Combine(specifyFolder, yyyyMMdd.Substring(0, 6), outName);// 整理到指定文件夹
+                        if (originalRadioButton.Checked) outPath = Path.Combine(originalFolder, yyyyMMdd.Substring(0, 6), outName);// 在自身文件夹中整理
                     }
                     #endregion 获取年月关键字
+
+                    listViewItem.SubItems.Add(outPath);// 文件整理路径
+                    listViewItem.SubItems.Add(errers);// 错误信息
+                    items.Add(listViewItem);
                 }
 
                 #region 异常
@@ -201,7 +214,7 @@ namespace TainFilesManage
                 }
                 catch (FileNotFoundException ex)
                 {
-                    if (MessageBox.Show("文件或文件夹不存在\r\n\r\n当前文件：" + files[i].FullName + "\r\n\r\n错误描述如下\r\n\r\n" + ex + "\r\n\r\n是否继续归类？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK) { continue; }
+                    if (MessageBox.Show("文件或文件夹不存在\r\n\r\n当前文件：" + files[i].FullName + "\r\n\r\n错误描述如下\r\n\r\n" + ex + "\r\n\r\n是否继续整理？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK) { continue; }
                     else
                     {
                         e.Cancel = true;
@@ -210,7 +223,7 @@ namespace TainFilesManage
                 }
                 catch (Exception ex)
                 {
-                    if (MessageBox.Show("发生未知错误\r\n\r\n当前文件：" + files[i].FullName + "\r\n\r\n错误描述如下" + ex + "\r\n\r\n是否继续归类？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK) { continue; }
+                    if (MessageBox.Show("发生未知错误\r\n\r\n当前文件：" + files[i].FullName + "\r\n\r\n错误描述如下" + ex + "\r\n\r\n是否继续整理？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK) { continue; }
                     else
                     {
                         e.Cancel = true;
@@ -237,7 +250,7 @@ namespace TainFilesManage
         }
 
         /// <summary>
-        /// 文件归类
+        /// 文件整理
         /// </summary>
         /// <param name="inPath">旧路径</param>
         /// <param name="outPath">新路径</param>
@@ -279,7 +292,7 @@ namespace TainFilesManage
         }
 
         /// <summary>
-        /// 导步归类进度
+        /// 导步整理进度
         /// </summary>
         private void sortBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -288,7 +301,7 @@ namespace TainFilesManage
         }
 
         /// <summary>
-        /// 导步归类结束
+        /// 导步整理结束
         /// </summary>
         private void sortBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -304,13 +317,13 @@ namespace TainFilesManage
                 progressLabel.Text = "已取消";
                 return;
             }
-
+            foreach (ListViewItem it in items) listView1.Items.Add(it);
             progressBar.Value = 100;
             progressLabel.Text = "完成";
         }
 
         /// <summary>
-        /// 归类文件夹浏览
+        /// 整理文件夹浏览
         /// </summary>
         private void inButton_Click(object sender, EventArgs e)
         {
@@ -326,7 +339,7 @@ namespace TainFilesManage
         }
 
         /// <summary>
-        /// 取消归类按钮
+        /// 取消整理按钮
         /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
@@ -350,7 +363,7 @@ namespace TainFilesManage
         private void button4_Click(object sender, EventArgs e)
         {
             if (sortBackgroundWorker.IsBusy) return;
-            sortBackgroundWorker.RunWorkerAsync(inTextBox.Text); 
+            sortBackgroundWorker.RunWorkerAsync(inTextBox.Text);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -373,6 +386,18 @@ namespace TainFilesManage
             Close();
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            listView1.Clear();
+            listView1.Columns.Add("状态");
+            listView1.Columns.Add("文件路径");
+            listView1.Columns.Add("文件整理路径");
+            listView1.Columns.Add("错误信息");
+            listView1.Columns[0].Width = 60;
+            listView1.Columns[1].Width = 300;
+            listView1.Columns[2].Width = 300;
+            listView1.Columns[3].Width = 100;
+        }
         ///
 
     }

@@ -103,8 +103,9 @@
             // 
             // progressLabel
             // 
+            this.progressLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F);
             this.progressLabel.Name = "progressLabel";
-            this.progressLabel.Size = new System.Drawing.Size(80, 17);
+            this.progressLabel.Size = new System.Drawing.Size(74, 17);
             this.progressLabel.Text = "等待用户操作";
             // 
             // menuStrip2
@@ -340,6 +341,7 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader4});
+            this.listView1.Font = new System.Drawing.Font("微软雅黑", 8F);
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(-2, 100);
             this.listView1.Name = "listView1";

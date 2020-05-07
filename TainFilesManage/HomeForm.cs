@@ -33,6 +33,7 @@ namespace TainFilesManage
         /// </summary>
         private void sortBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            if (items.Count != 0) items.Clear();
             sortBackgroundWorker.ReportProgress(1, "文件扫描中...");// 进度传出
             DirectoryInfo directorys = new DirectoryInfo(e.Argument as string);// 遍历文件夹
             FileInfo[] files = directorys.GetFiles("*.*", SearchOption.AllDirectories);
@@ -65,7 +66,6 @@ namespace TainFilesManage
                 string errers = "";
                 #endregion 关键元素
 
-                if (items.Count != 0) items.Clear();
                 ListViewItem listViewItem = new ListViewItem();// 定义单个项目
                 listViewItem.ImageIndex = i;// 
                 //listViewItem.Text = outName+ outExtension;// 项目名
@@ -183,7 +183,6 @@ namespace TainFilesManage
                     {
                         outName = yyyyMMdd + "_" + originalFolderName + "_" + inName + outExtension;
                         outPath = Path.Combine(originalFolder, outName);
-                        inPath = outPath;// 重命名后，将新路径赋绘inPath，不然后面整理时找不到文件
                     }
                     else outName = inName + outExtension;// 不须重命名时
                     #endregion 重命名
@@ -191,7 +190,7 @@ namespace TainFilesManage
                     #region 整理
                     if (sort)// 不须整理时跳过
                     {
-                        if (yyyyMMdd.Substring(0, 6) == originalFolderName) continue;// 自身文件夹名与年月关键字相同时不整理
+                        if (yyyyMMdd.Substring(0, 6) == originalFolderName) { }// 自身文件夹名与年月关键字相同时不整理
                         if (specifyRadioButton.Checked) outPath = Path.Combine(specifyFolder, yyyyMMdd.Substring(0, 6), outName);// 整理到指定文件夹
                         if (originalRadioButton.Checked) outPath = Path.Combine(originalFolder, yyyyMMdd.Substring(0, 6), outName);// 在自身文件夹中整理
                     }

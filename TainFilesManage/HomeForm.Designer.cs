@@ -55,16 +55,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.originalRadioButton = new System.Windows.Forms.RadioButton();
             this.noscanRadioButton = new System.Windows.Forms.RadioButton();
-            this.outTextBox = new System.Windows.Forms.TextBox();
-            this.inTextBox = new System.Windows.Forms.TextBox();
             this.specifyRadioButton = new System.Windows.Forms.RadioButton();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.listView1 = new DoubleBufferListView();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -74,6 +67,12 @@
             this.button9 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.sortBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.outFolderLabel = new System.Windows.Forms.Label();
+            this.listView1 = new DoubleBufferListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -251,7 +250,7 @@
             // originalRadioButton
             // 
             this.originalRadioButton.AutoSize = true;
-            this.originalRadioButton.Location = new System.Drawing.Point(77, 77);
+            this.originalRadioButton.Location = new System.Drawing.Point(171, 76);
             this.originalRadioButton.Name = "originalRadioButton";
             this.originalRadioButton.Size = new System.Drawing.Size(134, 21);
             this.originalRadioButton.TabIndex = 30;
@@ -262,7 +261,7 @@
             // 
             this.noscanRadioButton.AutoSize = true;
             this.noscanRadioButton.Checked = true;
-            this.noscanRadioButton.Location = new System.Drawing.Point(9, 77);
+            this.noscanRadioButton.Location = new System.Drawing.Point(103, 76);
             this.noscanRadioButton.Name = "noscanRadioButton";
             this.noscanRadioButton.Size = new System.Drawing.Size(62, 21);
             this.noscanRadioButton.TabIndex = 31;
@@ -270,29 +269,10 @@
             this.noscanRadioButton.Text = "不归类";
             this.noscanRadioButton.UseVisualStyleBackColor = true;
             // 
-            // outTextBox
-            // 
-            this.outTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.outTextBox.Location = new System.Drawing.Point(821, 471);
-            this.outTextBox.Name = "outTextBox";
-            this.outTextBox.Size = new System.Drawing.Size(62, 23);
-            this.outTextBox.TabIndex = 4;
-            this.outTextBox.Visible = false;
-            // 
-            // inTextBox
-            // 
-            this.inTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inTextBox.Location = new System.Drawing.Point(821, 442);
-            this.inTextBox.Name = "inTextBox";
-            this.inTextBox.Size = new System.Drawing.Size(62, 23);
-            this.inTextBox.TabIndex = 1;
-            this.inTextBox.Visible = false;
-            // 
             // specifyRadioButton
             // 
             this.specifyRadioButton.AutoSize = true;
-            this.specifyRadioButton.Location = new System.Drawing.Point(217, 77);
+            this.specifyRadioButton.Location = new System.Drawing.Point(311, 76);
             this.specifyRadioButton.Name = "specifyRadioButton";
             this.specifyRadioButton.Size = new System.Drawing.Size(122, 21);
             this.specifyRadioButton.TabIndex = 29;
@@ -331,44 +311,6 @@
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // listView1
-            // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5,
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader4});
-            this.listView1.Font = new System.Drawing.Font("微软雅黑", 8F);
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(-2, 100);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(988, 540);
-            this.listView1.TabIndex = 39;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "状态";
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "文件路径";
-            this.columnHeader1.Width = 300;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "文件整理路径";
-            this.columnHeader2.Width = 300;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "错误信息";
-            this.columnHeader4.Width = 100;
             // 
             // button5
             // 
@@ -479,7 +421,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(345, 77);
+            this.checkBox1.Location = new System.Drawing.Point(10, 76);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(87, 21);
             this.checkBox1.TabIndex = 48;
@@ -494,17 +436,64 @@
             this.sortBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.sortBackgroundWorker_ProgressChanged);
             this.sortBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.sortBackgroundWorker_RunWorkerCompleted);
             // 
+            // outFolderLabel
+            // 
+            this.outFolderLabel.AutoSize = true;
+            this.outFolderLabel.Location = new System.Drawing.Point(439, 78);
+            this.outFolderLabel.Name = "outFolderLabel";
+            this.outFolderLabel.Size = new System.Drawing.Size(95, 17);
+            this.outFolderLabel.TabIndex = 49;
+            this.outFolderLabel.Text = "outFolderLabel";
+            this.outFolderLabel.Visible = false;
+            // 
+            // listView1
+            // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader4});
+            this.listView1.Font = new System.Drawing.Font("微软雅黑", 8F);
+            this.listView1.GridLines = true;
+            this.listView1.Location = new System.Drawing.Point(-2, 100);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(988, 540);
+            this.listView1.TabIndex = 39;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "状态";
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "文件路径";
+            this.columnHeader1.Width = 300;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "文件整理路径";
+            this.columnHeader2.Width = 300;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "错误信息";
+            this.columnHeader4.Width = 100;
+            // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.outFolderLabel);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
-            this.Controls.Add(this.outTextBox);
             this.Controls.Add(this.specifyRadioButton);
-            this.Controls.Add(this.inTextBox);
             this.Controls.Add(this.noscanRadioButton);
             this.Controls.Add(this.originalRadioButton);
             this.Controls.Add(this.panel3);
@@ -554,8 +543,6 @@
         private System.Windows.Forms.ToolStripMenuItem 版本升级ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem1;
         private System.Windows.Forms.RadioButton specifyRadioButton;
-        private System.Windows.Forms.TextBox inTextBox;
-        private System.Windows.Forms.TextBox outTextBox;
         private System.Windows.Forms.RadioButton noscanRadioButton;
         private System.Windows.Forms.RadioButton originalRadioButton;
         private System.Windows.Forms.Button button3;
@@ -580,6 +567,7 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.ComponentModel.BackgroundWorker sortBackgroundWorker;
+        private System.Windows.Forms.Label outFolderLabel;
     }
 }
 

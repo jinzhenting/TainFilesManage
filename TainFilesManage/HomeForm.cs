@@ -20,12 +20,17 @@ namespace TainFilesManage
         private List<ListViewItem> items = new List<ListViewItem>();
 
         /// <summary>
+        /// 添加的文件夹
+        /// </summary>
+        private string inFolder;
+
+        /// <summary>
         /// 开始整理按钮
         /// </summary>
         private void scanButton_Click(object sender, EventArgs e)
         {
             if (scanBackgroundWorker.IsBusy) return;
-            scanBackgroundWorker.RunWorkerAsync(inTextBox.Text);
+            scanBackgroundWorker.RunWorkerAsync();
         }
 
         /// <summary>
@@ -59,7 +64,7 @@ namespace TainFilesManage
                 string outPath = "";// 新路径
                 string outName = "";// 不包含扩展名的文件名
                 string outExtension = inExtension.ToLower();// 新扩展名
-                string specifyFolder = outTextBox.Text;// 指定目标文件夹路径
+                string specifyFolder = outFolderLabel.Text;// 指定目标文件夹路径
                 string originalFolder = files[i].DirectoryName;// 自身文件夹路径
                 string originalFolderName = new DirectoryInfo(originalFolder).Name;// 自身文件夹名字
                 string yyyyMMdd = "";// 年月关键字
@@ -257,7 +262,7 @@ namespace TainFilesManage
         /// </summary>
         /// <param name="inPath">旧路径</param>
         /// <param name="outPath">新路径</param>
-        private void Move(string inPath, string outPath)
+        private void MoveTo(string inPath, string outPath)
         {
             if (inPath.ToLower() == outPath.ToLower()) return;// 相同位置时跳过
             if (File.Exists(outPath))// 如果新文件已存在同名文件
@@ -330,7 +335,7 @@ namespace TainFilesManage
         /// </summary>
         private void inButton_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) inTextBox.Text = folderBrowserDialog1.SelectedPath;
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) inFolder = folderBrowserDialog1.SelectedPath;
         }
 
         /// <summary>
@@ -338,7 +343,7 @@ namespace TainFilesManage
         /// </summary>
         private void outButton_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) outTextBox.Text = folderBrowserDialog1.SelectedPath;
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) outFolderLabel.Text = folderBrowserDialog1.SelectedPath;
         }
 
         /// <summary>
@@ -354,8 +359,13 @@ namespace TainFilesManage
         /// </summary>
         private void scan1RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (specifyRadioButton.Checked) outTextBox.Enabled = button7.Enabled = true;
-            else outTextBox.Enabled = button7.Enabled = false;
+            if (specifyRadioButton.Checked)
+            {
+                outFolderLabel.Text = "";
+                outFolderLabel.Visible = button7.Enabled = true;
+                if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) outFolderLabel.Text = folderBrowserDialog1.SelectedPath;
+            }
+            else outFolderLabel.Visible = button7.Enabled = false;
         }
 
         private void HomeForm_Load(object sender, EventArgs e)
@@ -381,7 +391,7 @@ namespace TainFilesManage
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) outTextBox.Text = folderBrowserDialog1.SelectedPath;
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) outFolderLabel.Text = folderBrowserDialog1.SelectedPath;
         }
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -413,7 +423,7 @@ namespace TainFilesManage
                     return;
                 }
                 sortBackgroundWorker.ReportProgress(Percents.Get(i, items.Count), "正在整理 "+items[i].SubItems[0].Text);// 进度传出
-                Move(items[i].SubItems[1].Text, items[i].SubItems[2].Text);
+                MoveTo(items[i].SubItems[1].Text, items[i].SubItems[2].Text);
             }
         }
 

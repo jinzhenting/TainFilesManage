@@ -186,7 +186,13 @@ namespace TainFilesManage
                     #region 重命名
                     if (rename)// 须重命名时
                     {
-                        outName = yyyyMMdd + "_" + originalFolderName + "_" + inName + outExtension;
+                        if (DateFolder(originalFolder))
+                        {
+                            outName = yyyyMMdd + "_" + originalFolderName + "_" + inName + outExtension;
+                        }
+                        else {
+                            outName = yyyyMMdd + "_" + originalFolderName + "_" + inName + outExtension;
+                        }
                         outPath = Path.Combine(originalFolder, outName);
                     }
                     else// 不须重命名时
@@ -199,7 +205,7 @@ namespace TainFilesManage
                     #region 整理
                     if (scan)// 不须整理时跳过
                     {
-                        if (yyyyMMdd.Substring(0, 6) == originalFolderName) { }// 自身文件夹名与年月关键字相同时不整理
+                        //if (yyyyMMdd.Substring(0, 6) == originalFolderName) { }// 自身文件夹名与年月关键字相同时不整理
                         if (specifyRadioButton.Checked) outPath = Path.Combine(specifyFolder, yyyyMMdd.Substring(0, 6), outName);// 整理到指定文件夹
                         if (originalRadioButton.Checked) outPath = Path.Combine(originalFolder, yyyyMMdd.Substring(0, 6), outName);// 在自身文件夹中整理
                     }
@@ -255,6 +261,18 @@ namespace TainFilesManage
             Regex regNum = new Regex(@"^(([0-9]{8})[_]).*");// 检测文件是否已重命名
             if (regNum.IsMatch(fileName)) return false;// 不须重命名
             else return true;
+        }
+
+        /// <summary>
+        /// 是否是日期文件夹
+        /// </summary>
+        /// <param name="folderName">文件夹名</param>
+        /// <returns></returns>
+        private bool DateFolder(string folderName)
+        {
+            Regex regNum = new Regex(@"^([0-9]{4}[0-1][0-9])$");
+            if (regNum.IsMatch(folderName)) return true;
+            else return false;
         }
 
         /// <summary>
